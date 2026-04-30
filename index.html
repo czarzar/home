@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cristóbal Zarzar</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&family=Montserrat:wght@300;400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #2d2220;
+      --text: #f5f0ec;
+      --text-dim: #c9bdb6;
+      --border: #f5f0ec;
+      --accent: #e8d8d0;
+    }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 300;
+      min-height: 100vh;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; right: 0;
+      padding: 1.4rem 2.5rem;
+      display: flex;
+      gap: 2rem;
+      z-index: 100;
+    }
+
+    nav a {
+      color: var(--text);
+      text-decoration: none;
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      opacity: 0.85;
+      transition: opacity 0.2s;
+    }
+
+    nav a:hover, nav a.active { opacity: 1; }
+    nav a.active { font-weight: 400; }
+
+    /* MAIN LAYOUT */
+    main {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 6rem 2.5rem 4rem;
+    }
+
+    /* NAME HEADER */
+    .name-row {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      margin-bottom: 1.4rem;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 0.2s;
+    }
+
+    .name-row h1 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 400;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--text);
+      white-space: nowrap;
+    }
+
+    .name-row .rule {
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* HERO IMAGE */
+    .hero {
+      width: 100%;
+      border: 1px solid var(--border);
+      overflow: hidden;
+      opacity: 0;
+      animation: fadeUp 0.9s ease forwards 0.4s;
+    }
+
+    .hero img {
+      width: 100%;
+      display: block;
+      height: 500px;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+
+    .hero:hover img { transform: scale(1.02); }
+
+    /* SUBTITLE ROW */
+    .subtitle-row {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      margin-top: 1.4rem;
+      opacity: 0;
+      animation: fadeUp 0.9s ease forwards 0.6s;
+    }
+
+    .subtitle-row .rule {
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .subtitle-row .subtitle {
+      font-size: 0.85rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--text);
+      white-space: nowrap;
+      font-weight: 400;
+    }
+
+    /* ABOUT PAGE */
+    .about-section {
+      display: none;
+      max-width: 640px;
+      margin: 4rem auto 0;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 0.2s;
+    }
+
+    .about-section.visible { display: block; }
+
+    .about-section h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.4rem;
+      font-weight: 300;
+      color: var(--text);
+      margin-bottom: 2rem;
+      letter-spacing: 0.04em;
+    }
+
+    .about-section p {
+      font-size: 0.85rem;
+      line-height: 1.9;
+      color: var(--text-dim);
+      margin-bottom: 1.4rem;
+      letter-spacing: 0.03em;
+    }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* FOOTER */
+    footer {
+      margin-top: 5rem;
+      padding: 2rem 2.5rem;
+      text-align: center;
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      color: var(--text-dim);
+      opacity: 0.5;
+      text-transform: uppercase;
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="#" class="active" id="nav-home" onclick="showPage('home', this)">Home</a>
+    <a href="#" id="nav-about" onclick="showPage('about', this)">About me</a>
+  </nav>
+
+  <main>
+
+    <!-- HOME PAGE -->
+    <section id="page-home">
+      <div class="name-row">
+        <h1>Cristóbal Zarzar</h1>
+        <div class="rule"></div>
+      </div>
+
+      <div class="hero">
+        <!--
+          Replace the src below with your own image.
+          For GitHub Pages, place your image in the repo and use a relative path, e.g.:
+          src="images/hero.jpg"
+        -->
+        <img
+          src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1200&q=80"
+          alt="Hero image"
+        />
+      </div>
+
+      <div class="subtitle-row">
+        <div class="rule"></div>
+        <span class="subtitle">Researcher in Ancient Philosophy</span>
+      </div>
+    </section>
+
+    <!-- ABOUT PAGE -->
+    <section id="page-about" class="about-section">
+      <h2>About Me</h2>
+      <p>
+        Write a short introduction about yourself here. What do you do, what are you passionate about,
+        and what brings people to your work?
+      </p>
+      <p>
+        Add a second paragraph with more detail — your background, your research, your creative practice,
+        or whatever feels most relevant to share with visitors.
+      </p>
+      <p>
+        You can add a third paragraph with contact information, links, or a call to action.
+      </p>
+    </section>
+
+  </main>
+
+  <footer>© 2026 Cristóbal Zarzar</footer>
+
+  <script>
+    function showPage(page, el) {
+      event.preventDefault();
+
+      // Nav state
+      document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+      el.classList.add('active');
+
+      // Page visibility
+      document.getElementById('page-home').style.display  = page === 'home'  ? '' : 'none';
+      const about = document.getElementById('page-about');
+      if (page === 'about') {
+        about.classList.add('visible');
+        // Re-trigger animation
+        about.style.animation = 'none';
+        about.offsetHeight;
+        about.style.animation = '';
+      } else {
+        about.classList.remove('visible');
+      }
+    }
+  </script>
+
+</body>
+</html>
