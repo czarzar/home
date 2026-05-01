@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cristóbal Zarzar</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&family=Montserrat:wght@300;400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 300;
+      min-height: 100vh;
+    }
+
+    /* ────────────────── NAV ────────────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      padding: 1.4rem 2.5rem;
+      display: flex;
+      justify-content: flex-end;
+      gap: 2rem;
+      z-index: 100;
+      transition: background 0.3s;
+    }
+
+    nav { background: #2d2220; }
+
+    nav a {
+      text-decoration: none;
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #f5f0ec;
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+
+    nav a:hover  { opacity: 1; }
+    nav a.active { opacity: 1; font-weight: 400; }
+
+    /* ────────────────── PAGES (each fills full viewport width) ────────────────── */
+    .page {
+      display: none;
+      width: 100%;
+      min-height: 100vh;
+    }
+
+    .page.visible { display: block; }
+
+    /* Inner container centres content with max-width */
+    .page-inner {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 6rem 2.5rem 4rem;
+    }
+
+    /* ────────────────── HOME ────────────────── */
+    #page-home {
+      display: block;
+      background: #2d2220;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    #page-home .page-inner {
+      max-width: 100%;
+      padding: 2rem 2.5rem;
+    }
+
+    body.no-scroll { overflow: hidden; }
+
+    .name-row {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      margin-bottom: 2.4rem;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 0.2s;
+    }
+
+    .name-row h1 {
+      font-size: 0.85rem;
+      font-weight: 400;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: #f5f0ec;
+      white-space: nowrap;
+    }
+
+    .name-row .rule { flex: 1; height: 1px; background: #f5f0ec; }
+
+    .hero {
+      width: 100%;
+      border: 1px solid #f5f0ec;
+      overflow: hidden;
+      opacity: 0;
+      animation: fadeUp 0.9s ease forwards 0.4s;
+    }
+
+    .hero img {
+      width: 100%;
+      display: block;
+      height: 500px;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+
+    .hero:hover img { transform: scale(1.02); }
+
+    .subtitle-row {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      margin-top: 2.4rem;
+      opacity: 0;
+      animation: fadeUp 0.9s ease forwards 0.6s;
+    }
+
+    .subtitle-row .rule { flex: 1; height: 1px; background: #f5f0ec; }
+
+    .subtitle-row .subtitle {
+      font-size: 0.85rem;
+      font-weight: 400;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: #f5f0ec;
+      white-space: nowrap;
+    }
+
+    /* ────────────────── LIGHT PAGES (about / teaching) ────────────────── */
+    #page-about,
+    #page-teaching {
+      background: #f0ebe5;
+    }
+
+    /* Top two-column block */
+    .about-top {
+      display: flex;
+      gap: 1.5rem;
+      align-items: flex-start;
+      max-width: 100%;
+      margin-bottom: 3rem;
+      margin-top: 3rem;
+    }
+
+    .about-top-text { flex: 1; min-width: 0; }
+
+    .about-photo {
+      width: 240px;
+      height: 240px;
+      flex-shrink: 0;
+      border-radius: 50%;
+      overflow: hidden;
+      margin-right: 0;
+    }
+
+    .about-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: 20% top;
+    }
+
+    .section-title {
+      font-size: 0.72rem;
+      font-weight: 400;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #111111;
+      margin-bottom: 1.4rem;
+    }
+
+    #page-about ul,
+    #page-teaching ul {
+      list-style: disc;
+      padding-left: 1.4rem;
+      margin-bottom: 2rem;
+    }
+
+    #page-about ul li,
+    #page-teaching ul li {
+      font-size: 1.15rem;
+      line-height: 1.6;
+      color: #111111;
+      margin-bottom: 0.5rem;
+      font-weight: 400;
+      white-space: nowrap;
+    }
+
+    #page-about .content-body,
+    #page-teaching .content-body { max-width: 960px; }
+
+    .content-body .section-title { margin-top: 2.5rem; }
+    .content-body .section-title:first-child { margin-top: 0; }
+
+    #page-about p,
+    #page-teaching p {
+      font-size: 1.15rem;
+      line-height: 1.6;
+      color: #111111;
+      margin-bottom: 1.4rem;
+      font-weight: 400;
+    }
+
+    #page-about a,
+    #page-teaching a {
+      color: #1a1a1a;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    #page-about .page-inner,
+    #page-teaching .page-inner {
+      max-width: 1400px;
+      padding-top: 8rem;
+    }
+    footer {
+      text-align: center;
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 2rem;
+      width: 100%;
+      background: #2d2220;
+      color: rgba(245,240,236,0.35);
+    }
+
+    /* ────────────────── ANIMATIONS ────────────────── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <nav id="main-nav" class="dark">
+    <a href="#" class="active" onclick="showPage('home', this)">Home</a>
+    <a href="#" onclick="showPage('about', this)">About me</a>
+    <a href="#" onclick="showPage('teaching', this)">Teaching</a>
+  </nav>
+
+  <!-- ── HOME ── -->
+  <div id="page-home" class="page">
+    <div class="page-inner">
+      <div class="name-row">
+        <h1>Cristóbal Zarzar</h1>
+        <div class="rule"></div>
+      </div>
+
+      <div class="hero">
+        <img src="hero.jpg" alt="Hero image" />
+      </div>
+
+      <div class="subtitle-row">
+        <div class="rule"></div>
+        <span class="subtitle">Researcher in Ancient Philosophy</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── ABOUT ME ── -->
+  <div id="page-about" class="page">
+    <div class="page-inner">
+
+      <!-- Two-column: positions + photo -->
+      <div class="about-top">
+        <div class="about-top-text">
+          <p class="section-title">Current Position</p>
+          <ul>
+            <li>Postdoctoral Research Fellow, Faculty of Classics, University of Cambridge</li>
+            <li>Research Fellow-Elect in Ancient Philosophy, Clare Hall, Cambridge</li>
+          </ul>
+
+          <p class="section-title">Education</p>
+          <ul>
+            <li>2023: PhD in Classics – Ancient Philosophy, University of Cambridge</li>
+            <li>2015: Master in Philosophical Studies, King's College London</li>
+            <li>2012: Master of Arts in Philosophy, King's College London</li>
+            <li>2009: Licenciado en Filosofía, Universidad Católica de Chile</li>
+          </ul>
+        </div>
+
+        <div class="about-photo">
+          <img src="profile.png" alt="Cristóbal Zarzar" />
+        </div>
+      </div>
+
+      <!-- Research (full width below) -->
+      <div class="content-body">
+        <p class="section-title">Research</p>
+        <p>My research focuses primarily on Hellenistic Philosophy, especially on ancient topics related to Philosophy of Mind, Epistemology, and Moral Psychology. My doctoral thesis offers a novel reconstruction of part of the long-running epistemological debate between the Stoics and the members of the sceptical Academy concerning the validity of sense-perception as a secure foundation for knowledge—a debate that is notable both for its sophistication and its continuing relevance to epistemology.</p>
+        <p>In particular, the study concentrates on the Stoic doctrine of the so-called 'cognitive impression' (<em>phantasia katalēptikē</em>)—the only kind of sense-impression that, according to the Stoics, gives us reliable information about the world—and the challenge posed by the 'indistinguishability (<em>aparallaxia</em>) argument'. The analysis gives us a better idea of the interconnectedness of Stoic views on metaphysics and epistemology, as well as of the complexity of the debate and how these Stoic views were in part shaped by the philosophical exchange with their sceptical opponents and refined as a result of this confrontation.</p>
+        <p>The Stoics signed up to the empiricist view that knowledge is attainable and that it derives ultimately from information provided by our senses. On their account, some sense-impressions are false or deceptive, some are true, and others are 'cognitive' (<em>katalēptikai</em>): not only are they true, but they offer their recipients a guarantee of their truth insofar as they exhibit a peculiar mark (<em>idiōma</em>) that certifies the impression's reliability, i.e. a supposedly internal feature—a peculiar sharpness and vividness—that makes it possible for the perceiving subject to experientially distinguish the impression she is entertaining from a false impression. It is only to this kind of sense-impressions that the Stoic sage is supposed to give assent in order to remain infallible.</p>
+        <p>It is precisely because of this empiricism that the Stoics had to respond to various powerful challenges posed by the Academic sceptics, who set themselves to attack some of the empiricist tenets in order to establish that knowledge is unattainable or to show that arguments for the attainability of knowledge are subject to significant weaknesses. One of these challenges is known as the 'indistinguishability argument'. It seeks to establish that, for every true impression, there could be an indistinguishable false impression (Indistinguishability Thesis). If this is so, then no true impression is cognitive, for a true impression that is experientially indistinguishable from a false impression cannot offer the perceiver a guarantee of its truth.</p>
+        <p>This piece of work focuses in detail on one type of cases invoked by the Academics to support the Indistinguishability Thesis, which has not received the attention it deserves; namely the 'twin case'. Suppose that Castor and Pollux are twins. Suppose further that as a result of looking at one of them whilst in a normal state of mind you entertain the visual impression that the person before you is Pollux. Can you be sure, by attending to this impression's internal features or phenomenal character only, that your impression is not a false impression as from Pollux caused by Pollux's twin, Castor? If every true impression as from Pollux (caused by Pollux) is indistinguishable from a false impression as from Pollux (caused by Castor) then no impression coming from either twin is cognitive, and therefore you should not assent to it.</p>
+        <p>I am currently working on a monograph based on this study, <em>The Stoic cognitive impression and the Academic 'indistinguishability argument': a study of an epistemological debate</em>.</p>
+
+        <p class="section-title" style="margin-top:2.5rem; letter-spacing: 0.05em;">'Loss, Grief, and its Therapy: Philosophical Perspectives from Ancient Greece and Rome'</p>
+        <p>My new project is a systematic and comparative examination of ancient philosophical views on grief, understood as an emotional response to bereavement, and of the different types of attitudes they thought appropriate for us to adopt towards it, including various forms of consolatory therapy. The study will offer a comprehensive analysis of the topic, covering several figures from Plato (c. 4th BCE) to Galen (c. 2nd–3rd CE), and will challenge widespread assumptions about ancient responses to grief, which tend to oversimplify them as uniformly hostile. Instead, it will present a more nuanced and accurate picture of how grief was philosophically evaluated and therapeutically addressed in the ancient world.</p>
+        <p>A 3-day international conference related to this project was held in the Faculty of Classics at the University of Cambridge in September 2025: 'Loss, grief, and its therapy: philosophical perspectives from ancient Greece, Rome, and Asia'.</p>
+        <p>For more information, you can see the <a href="https://griefconference.my.canva.site/" target="_blank">conference website</a>.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── TEACHING ── -->
+  <div id="page-teaching" class="page">
+    <div class="page-inner">
+      <div class="content-body">
+        <p class="section-title">Teaching</p>
+        <p>Content coming soon.</p>
+      </div>
+    </div>
+  </div>
+
+  <footer id="main-footer" class="dark">© 2026 Cristóbal Zarzar</footer>
+
+  <script>
+    function showPage(page, el) {
+      event.preventDefault();
+
+      document.querySelectorAll('nav a').forEach(function(a) { a.classList.remove('active'); });
+      el.classList.add('active');
+
+      ['home', 'about', 'teaching'].forEach(function(id) {
+        var s = document.getElementById('page-' + id);
+        s.classList.remove('visible');
+        s.style.display = 'none';
+      });
+
+      var target = document.getElementById('page-' + page);
+      target.style.display = page === 'home' ? 'flex' : 'block';
+      target.style.animation = 'none';
+      target.offsetHeight;
+      target.style.animation = 'fadeUp 0.6s ease forwards';
+
+      window.scrollTo(0, 0);
+
+      if (page === 'home') {
+        document.body.classList.add('no-scroll');
+      } else {
+        document.body.classList.remove('no-scroll');
+      }
+    }
+
+    // No scroll on initial load
+    document.body.classList.add('no-scroll');
+  </script>
+
+</body>
+</html>
