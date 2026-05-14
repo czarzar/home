@@ -299,8 +299,16 @@
     @media (max-width: 768px) {
  
       /* Hide desktop nav links, show hamburger */
-      nav .desktop-links { display: none; }
+      nav .desktop-links { display: none !important; }
       .hamburger { display: flex; }
+ 
+      /* Fix content hidden behind fixed nav */
+      #page-about .page-inner,
+      #page-teaching .page-inner {
+        padding-top: 7rem;
+        padding-left: 1.4rem;
+        padding-right: 1.4rem;
+      }
  
       /* Home page */
       #page-home .page-inner {
@@ -332,26 +340,15 @@
  
       .hero img { height: 220px; }
  
-      /* About/Teaching pages */
-      #page-about .page-inner,
-      #page-teaching .page-inner {
-        padding-top: 5rem;
-        padding-left: 1.4rem;
-        padding-right: 1.4rem;
-      }
+      /* Hide profile photo on mobile */
+      .about-photo { display: none; }
  
-      /* Stack photo above text on mobile */
+      /* Stack layout */
       .about-top {
         flex-direction: column;
-        align-items: center;
         padding: 0;
         margin: 1.5rem 0 2rem;
-        gap: 2rem;
-      }
- 
-      .about-photo {
-        width: 200px;
-        height: 200px;
+        gap: 0;
       }
  
       /* Allow text to wrap on mobile */
